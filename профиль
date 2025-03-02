@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мои каналы</title>
+    <title>Мои каналы</title><div>        <h2>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -327,6 +328,28 @@
         <div id="channels">
             <!-- Ваши каналы здесь -->
         </div>
+    <div class="header">
+        <h2 class="chat-title">Для перехода в каналы</h2>
+    </div>
+
+    <div class="container">
+        <div id="channels">
+            <div class="channel">
+                <img class="avatar" src="https://sun6-22.userapi.com/s/v1/if1/RocsW2MnGfkCwywo5z5RrE56wzDxkKf0cojwx7Al4XQwjt0iQ-YSNXmbKfl9CJpUnt0v9edY.jpg?size=1271x1271&quality=96&crop=159,0,1271,1271&ava=1" alt="Аватар Чата">
+                <div>
+                    <a goto_web_page="492947ef42478c83" >Чат</a>
+                    <p class="channel-description">Обсуждения и новости среди знакомых</p>
+                </div>
+            </div>
+            <div class="channel">
+                <img class="avatar" src="https://avatars.mds.yandex.net/i?id=fc0b6fc73fe109069daacd8c27540ffb_l-5232905-images-thumbs&n=13" alt="Аватар Работы">
+                <div>
+                    <a href="work.html" class="channel-title">Работа</a>
+                    <p class="channel-description">Обсуждения рабочих задач между заказчиком и разработчиком</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
         <div class="create-channel-form">
             <h3>Создать канал</h3>
