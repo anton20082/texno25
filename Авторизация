@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e; /* Темный фон */
+        }
+        h2 {
+            color: #00bfff; 
+        }
+        .form-container {
+            background-color: #2c2c2c; /* Темный фон для контейнера формы */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            background-color: #444; /* Темный фон для поля ввода */
+            color: #ffffff; /* Белый текст в поле ввода */
+            border: 1px solid #666; /* Цвет границы */
+            border-radius: 5px; /* Скругление */
+        }
+        input::placeholder {
+            color: #bbbbbb; /* Цвет подсказки (placeholder) */
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #40739e;
+            color: white; /* Цвет текста на кнопке */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #72a1c8;
+        }
+        .error-message {
+            color: red; /* Цвет сообщения об ошибке */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Авторизация</h2>
+    <form id="registrationForm" onsubmit="return false;">
+        <input type="text" id="name" placeholder="Введите ваше имя" required>
+        <button type="button" onclick="handleSubmit()"><a goto_web_page="880e7944e6dcd3f7">...............Подтвердить...............</a></button>
+        <div class="error-message" id="error-message" style="display: none;"></div>
+    </form>
+</div>
+
+<script>
+    function handleSubmit() {
+        const name = document.getElementById('name').value.trim();
+        const storedNames = JSON.parse(localStorage.getItem('userNames')) || [];
+
+        // Проверка на уникальность имени
+        if (storedNames.includes(name) || name === "") {
+            document.getElementById('error-message').innerText = 'Ошибка: это имя уже занято или не введено. Пожалуйста, введите другое имя.';
+            document.getElementById('error-message').style.display = 'block';
+        } else {
+            // Сохраняем новое имя
+            storedNames.push(name);
+            localStorage.setItem('userNames', JSON.stringify(storedNames));
+
+            // Переход на другую страницу (ID мини-приложения)
+            gotoWebPage("880e7944e6dcd3f7"); // Замените на ID вашего мини-приложения
+        }
+    }
+</script>
+</body>
+</html>
