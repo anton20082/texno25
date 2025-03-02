@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в аккаунт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e; /* Темный фон */
+        }
+        h2 {
+            color: #00bfff; 
+        }
+        .form-container {
+            background-color: #2c2c2c; /* Темный фон для контейнера формы */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 100%;
+            background-color: #444; /* Темный фон для поля ввода */
+            color: #ffffff; /* Белый текст в поле ввода */
+            border: 1px solid #666; /* Цвет границы */
+            border-radius: 5px; /* Скругление */
+        }
+        input::placeholder {
+            color: #bbbbbb; /* Цвет подсказки (placeholder) */
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #40739e;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #72a1c8;
+        }
+        .error-message {
+            color: red; /* Цвет сообщения об ошибке */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Вход</h2>
+    <form id="registrationForm">
+        <input type="text" id="name" placeholder="Введите ваше имя" required>
+        <button type="submit"><a goto_web_page="880e7944e6dcd3f7">Подтвердить</a></button>
+        <div class="error-message" id="error-message" style="display: none;"></div>
+    </form>
+</div>
+
+<script>
+    // Предположим, что имя пользователя сохраняется в localStorage
+    const storedName = localStorage.getItem('userName');
+
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Предотвращаем перезагрузку страницы
+        const name = document.getElementById('name').value;
+
+        if (name === storedName) {
+            // Если имя совпадает, переходим на следующую страницу
+            window.location.href = 'nextPage.html'; // Укажите адрес следующей страницы
+        } else {
+            // Если имя не совпадает, отображаем сообщение об ошибке
+            document.getElementById('error-message').innerText = 'Неправильное имя. Пожалуйста, попробуйте еще раз.';
+            document.getElementById('error-message').style.display = 'block';
+        }
+    });
+
+    // Запрос на сохранение имени для теста
+    if (!storedName) {
+        localStorage.setItem('userName', 'ТестовоеИмя'); // Замените на реальное имя для теста
+    }
+</script>
+</body>
+</html>
