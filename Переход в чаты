@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добро пожаловать</title>
+</head>
+<body>
+    <h1>Добро пожаловать, <span id="userName"></span>!</h1>
+    <button id="changeNameButton">Изменить имя</button>
+    <script>
+        const userNameElement = document.getElementById('userName');
+        let userName = localStorage.getItem('userName'); // Получаем текущее имя
+        userNameElement.innerText = userName ? userName : 'Гость';
+
+        document.getElementById('changeNameButton').addEventListener('click', function() {
+            const newName = prompt('Введите новое имя:');
+            if (newName) {
+                localStorage.setItem('userName', newName); // Сохраняем новое имя
+                userNameElement.innerText = newName; // Обновляем отображаемое имя
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1e1e1e; /* Темный фон */
+        }
+        .button {
+            background-color: #40739e;
+            color: white; /* Цвет текста на кнопке */
+            border: none;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #72a1c8;
+        }
+    </style>
+</head>
+<body>
+
+<a class="button" goto_web_page="a92acb308084e2d7">Нажми сюда, чтобы перейти</a>
+
+<script>
+    // Обработчик для клика по ссылке с атрибутом goto_web_page
+    document.querySelector('.button').addEventListener('click', function() {
+        const pageId = this.getAttribute('goto_web_page');
+        gotoWebPage(pageId); // Используем функцию перехода, если она существует
+    });
+</script>
+
+</body>
+</html>
