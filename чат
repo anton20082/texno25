@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Визуальный чат</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212; /* Темный фон */
+            color: #ffffff; /* Светлый текст */
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 350px; /* Уменьшаем ширину для мини-приложения */
+            height: 550px; /* Увеличиваем высоту */
+            background-color: #1e1e1e; /* Темный фон контейнера */
+            margin: 20px auto; /* Уменьшаем отступы */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 5px; /* Уменьшаем отступы */
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            font-size: 18px; /* Уменьшаем размер шрифта */
+            display: flex;
+            justify-content: space-between; /* Для выравнивания кнопки */
+            align-items: center; /* Для центрирования по вертикали */
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            border-bottom: 1px solid #444; /* Темная линия разделителя */
+            font-size: 14px; /* Уменьшаем размер текста сообщений */
+            color: #ffffff; /* Светлый текст сообщений */
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 5px; /* Уменьшаем отступы */
+        }
+
+        .chat-input input[type="text"] {
+            flex: 1;
+            padding: 5px; /* Уменьшаем отступы */
+            border: 1px solid #444; /* Темная рамка */
+            border-radius: 5px;
+            font-size: 14px; /* Уменьшаем размер шрифта */
+            background-color: #343434; /* Темный фон для поля ввода */
+            color: #ffffff; /* Светлый текст в поле ввода */
+        }
+
+        .chat-input input[type="file"] {
+            display: none; /* Скрываем стандартный элемент ввода файла */
+        }
+
+        .file-upload-button {
+            background-color: black; /* Яркий зеленый цвет */
+            background-image: url('https://www.mindomo.com/doc.htm?d=c8dcde7a8d6049c4982d23d44176780b&m=b28ece5a8d2049348bf2eab2711c4e4b'); /* Замените на адрес вашей новой иконки */
+            background-size: cover;
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 50%; /* Закругленная кнопка */
+            cursor: pointer;
+            margin-right: 5px; /* Отступ для кнопки загрузки */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Тень для кнопки */
+            transition: background-color 0.3s; /* Плавный переход */
+        }
+
+        .file-upload-button:hover {
+            background-color: #218838; /* Темнее на наведение */
+        }
+
+        .chat-input button {
+            margin-left: 5px; /* Уменьшаем отступы */
+            padding: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px; /* Уменьшаем размер шрифта */
+        }
+
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: #444; /* Темный фон для сообщения */
+            font-size: 14px; /* Уменьшаем размер текста сообщений */
+            color: #ffffff; /* Светлый текст сообщения */
+        }
+
+        .image-message {
+            margin: 5px 0;
+            display: flex;
+            justify-content: center; /* Центрируем изображение */
+        }
+
+        .image-message img {
+            max-width: 100%; /* Ограничиваем ширину изображения */
+            border-radius: 5px; /* Закругленные края */
+        }
+
+        .navigate-button {
+            background-color: #28a745; /* Зеленый цвет для кнопки навигации */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .navigate-button:hover {
+            background-color: #218838; /* Темнее на нажатие */
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="navigate-button" onclick="goToPage()">Назад</button>
+            <span>Чат</span>
+        </div>
+        <div class="chat-messages" id="messages">
+            <!-- Сообщения будут добавляться сюда -->
+        </div>
+        <div class="chat-input">
+            <label for="fileInput" class="file-upload-button"></label>
+            <input type="file" id="fileInput" accept="image/*" />
+            <input type="text" id="messageInput" placeholder="Введите сообщение..." />
+            <button id="sendButton">Отправить</button>
+        </div>
+    </div>
+
+    <script>
+        // Обработчик для отправки текстового сообщения или изображения
+        document.getElementById('sendButton').addEventListener('click', function() {
+            const messageInput = document.getElementById('messageInput');
+            const fileInput = document.getElementById('fileInput');
+            const messageText = messageInput.value.trim();
+
+            const messagesContainer = document.getElementById('messages');
+
+            // Отправка текстового сообщения
+            if (messageText) {
+                const messageElement = document.createElement('div');
+                messageElement.textContent = messageText; // Используем textContent для предотвращения XSS
+                messageElement.classList.add('message');
+                messagesContainer.appendChild(messageElement);
+                messageInput.value = '';
+            }
+
+            // Отправка выбранного изображения
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const imageMessageElement = document.createElement('div');
+                    const imgElement = document.createElement('img');
+                    imgElement.src = event.target.result;
+                    imgElement.alt = 'Отправленное изображение';
+                    imageMessageElement.classList.add('image-message');
+                    imageMessageElement.appendChild(imgElement);
+                    messagesContainer.appendChild(imageMessageElement);
+                };
+
+                reader.readAsDataURL(file);
+                fileInput.value = ''; // Очищаем поле выбора файла
+            }
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Прокручиваем вниз
+        });
+
+        // Отправка сообщения при нажатии Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('sendButton').click();
+            }
+        });
+
+        // Функция для перехода на другую страницу
+        function goToPage() {
+            window.location.href = 'https://example.com'; // Замените URL на нужный
+        }
+    </script>
+</body>
+</html>
